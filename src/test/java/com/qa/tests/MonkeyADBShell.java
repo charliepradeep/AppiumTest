@@ -104,7 +104,7 @@ public class MonkeyADBShell extends BaseTest {
 	    	}
 	    	
 	    	
-	    	ArrayList<String> list = (ArrayList<String>) Arrays.asList("-p", "br.com.golmobile.nypost.dev", "-v", "1000", "--throttle", "5000", "-c", "android.intent.category.MONKEY", "-c", "android.intent.category.LAUNCHER", "c", "android.intent.category.DEFAULT", "--monitor-native-crashes", "--kill-process-after-error", "--pct-syskeys", "0", "--pct-appswitch", "0", "--pct-majornav", "50", "-v", "-v", "-v");
+	    	List<String> list = Arrays.asList("-p", "br.com.golmobile.nypost.dev", "-v", "1000", "--throttle", "5000", "-c", "android.intent.category.MONKEY", "-c", "android.intent.category.LAUNCHER", "c", "android.intent.category.DEFAULT", "--monitor-native-crashes", "--kill-process-after-error", "--pct-syskeys", "0", "--pct-appswitch", "0", "--pct-majornav", "50", "-v", "-v", "-v");
 			//removed system commands
 			//List<String> list = Arrays.asList("-p", "com.newscorp.thedailytelegraph", "-v", "500", "--throttle", "1000", "-c", "android.intent.category.MONKEY", "-c", "android.intent.category.LAUNCHER", "c", "android.intent.category.DEFAULT", "--monitor-native-crashes", "--kill-process-after-error", "--pct-touch","30","--pct-motion", "30","--pct-majornav", "20", "--pct-appswitch", "2", "-v", "-v", "-v");
 	    	Map<String, Object> argv = new HashMap<>();
