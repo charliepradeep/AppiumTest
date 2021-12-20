@@ -78,6 +78,7 @@ public class MonkeyADBShell extends BaseTest {
 	    		System.out.println("Script Execution using ADB Monkey Started");	
 	    	
 	    	Process p = Runtime.getRuntime().exec("adb dumpsys cpuinfo");
+	    	p.waitFor();
 	    	InputStream is = p.getInputStream();
 	    	BufferedReader br = new BufferedReader(new InputStreamReader(is));
 	    	while(br.readLine()!=null)
@@ -118,6 +119,7 @@ public class MonkeyADBShell extends BaseTest {
 	    		System.out.println("Script Execution using ADB Monkey Started");	
 	    	
 	    	Process p = Runtime.getRuntime().exec("adb shell -P 5037 -s emulator-5554  monkey -p br.com.golmobile.nypost.dev -v 1000 --throttle 5000 -c android.intent.category.MONKEY -c android.intent.category.LAUNCHER c android.intent.category.DEFAULT --monitor-native-crashes --kill-process-after-error --pct-syskeys 0 --pct-appswitch 0 --pct-majornav 50 -v -v -v");
+	    	p.waitFor();
 	    	InputStream is = p.getInputStream();
 	    	BufferedReader br = new BufferedReader(new InputStreamReader(is));
 	    	while(br.readLine()!=null)
@@ -137,20 +139,20 @@ public class MonkeyADBShell extends BaseTest {
 	    	}
 	    	
 	    	
-	    	List<String> list = Arrays.asList("-p", "br.com.golmobile.nypost.dev", "-v", "1000", "--throttle", "5000", "-c", "android.intent.category.MONKEY", "-c", "android.intent.category.LAUNCHER", "c", "android.intent.category.DEFAULT", "--monitor-native-crashes", "--kill-process-after-error", "--pct-syskeys", "0", "--pct-appswitch", "0", "--pct-majornav", "50", "-v", "-v", "-v");
-			//removed system commands
-			//List<String> list = Arrays.asList("-p", "com.newscorp.thedailytelegraph", "-v", "500", "--throttle", "1000", "-c", "android.intent.category.MONKEY", "-c", "android.intent.category.LAUNCHER", "c", "android.intent.category.DEFAULT", "--monitor-native-crashes", "--kill-process-after-error", "--pct-touch","30","--pct-motion", "30","--pct-majornav", "20", "--pct-appswitch", "2", "-v", "-v", "-v");
-//	    	Map<String, Object> argv = new HashMap<>();
-//	    	argv.put("command", "monkey");
-//	    	argv.put("args", list);
-//	    	
-	    	Map<String, Object> monkeyCmd = ImmutableMap.of(
-		    	    "command", "monkey",
-		    	    "args", list
-		    	);
-	    	String result = getDriver().executeScript("mobile: shell", monkeyCmd).toString();
-	    	utils.log().info(result);
-	    	ExtentReport.getTest().log(Status.INFO, result);
+//	    	List<String> list = Arrays.asList("-p", "br.com.golmobile.nypost.dev", "-v", "1000", "--throttle", "5000", "-c", "android.intent.category.MONKEY", "-c", "android.intent.category.LAUNCHER", "c", "android.intent.category.DEFAULT", "--monitor-native-crashes", "--kill-process-after-error", "--pct-syskeys", "0", "--pct-appswitch", "0", "--pct-majornav", "50", "-v", "-v", "-v");
+//			//removed system commands
+//			//List<String> list = Arrays.asList("-p", "com.newscorp.thedailytelegraph", "-v", "500", "--throttle", "1000", "-c", "android.intent.category.MONKEY", "-c", "android.intent.category.LAUNCHER", "c", "android.intent.category.DEFAULT", "--monitor-native-crashes", "--kill-process-after-error", "--pct-touch","30","--pct-motion", "30","--pct-majornav", "20", "--pct-appswitch", "2", "-v", "-v", "-v");
+////	    	Map<String, Object> argv = new HashMap<>();
+////	    	argv.put("command", "monkey");
+////	    	argv.put("args", list);
+////	    	
+//	    	Map<String, Object> monkeyCmd = ImmutableMap.of(
+//		    	    "command", "monkey",
+//		    	    "args", list
+//		    	);
+//	    	String result = (String)getDriver().executeScript("mobile: shell", monkeyCmd).toString();
+//	    	utils.log().info(result);
+//	    	ExtentReport.getTest().log(Status.INFO, result);
 
 	    	
 	    	
