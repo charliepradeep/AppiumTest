@@ -108,7 +108,7 @@ public class MonkeyADBShell extends BaseTest {
 			//removed system commands
 			//List<String> list = Arrays.asList("-p", "com.newscorp.thedailytelegraph", "-v", "500", "--throttle", "1000", "-c", "android.intent.category.MONKEY", "-c", "android.intent.category.LAUNCHER", "c", "android.intent.category.DEFAULT", "--monitor-native-crashes", "--kill-process-after-error", "--pct-touch","30","--pct-motion", "30","--pct-majornav", "20", "--pct-appswitch", "2", "-v", "-v", "-v");
 	    	Map<String, Object> argv = new HashMap<>();
-	    	argv.put("command", "monkey ");
+	    	argv.put("command", "monkey");
 	    	argv.put("args", list);
 	    	String result = getDriver().executeScript("mobile: shell", argv).toString();
 	    	utils.log().info(result);
