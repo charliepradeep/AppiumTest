@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite parallel="tests" name="Failed suite [Suite]" guice-stage="DEVELOPMENT" verbose="0">
+  <parameter name="emulator" value="true"/>
+  <parameter name="platformName" value="Android"/>
+  <parameter name="udid" value="emulator-5554"/>
+  <parameter name="deviceName" value="New_Device_API_30"/>
+  <parameter name="systemPort" value="4724"/>
+  <listeners>
+    <listener class-name="com.qa.listeners.TestListener"/>
+  </listeners>
+  <test thread-count="5" parallel="tests" name="emulator-5554(failed)" verbose="0">
+    <classes>
+      <class name="com.qa.tests.MonkeyADBShell">
+        <methods>
+          <include name="afterMethod"/>
+          <include name="beforeTest"/>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+          <include name="beforeClass"/>
+          <include name="afterTest"/>
+          <include name="beforeMethod"/>
+          <include name="beforeMethod"/>
+          <include name="ADBShellMonkeyTest"/>
+          <include name="afterClass"/>
+        </methods>
+      </class> <!-- com.qa.tests.MonkeyADBShell -->
+    </classes>
+  </test> <!-- emulator-5554(failed) -->
+</suite> <!-- Failed suite [Suite] -->
