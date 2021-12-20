@@ -1,8 +1,13 @@
 package com.qa.tests;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -76,7 +81,30 @@ public class MonkeyADBShell extends BaseTest {
 			
 	    	//adb shell monkey -p your.package.name -v 500
 			//"--pct-syskeys", "1", "--pct-appswitch", "1", "--pct-touch","43","--pct-motion", "30","--pct-majornav", "50",
-	    	List<String> list = Arrays.asList("-p", "br.com.golmobile.nypost.dev", "-v", "1000", "--throttle", "5000", "-c", "android.intent.category.MONKEY", "-c", "android.intent.category.LAUNCHER", "c", "android.intent.category.DEFAULT", "--monitor-native-crashes", "--kill-process-after-error", "--pct-syskeys", "0", "--pct-appswitch", "0", "--pct-majornav", "50", "-v", "-v", "-v");
+	    	
+	    	try
+	    	{
+	    		utils.log().info("Script Execution using ADB Monkey Started");
+	    		System.out.println("Script Execution using ADB Monkey Started");	
+	    	
+	    	Process p = Runtime.getRuntime().exec("adb shell -P 5037 -s emulator-5554  monkey -p br.com.golmobile.nypost.dev -v 1000 --throttle 5000 -c android.intent.category.MONKEY -c android.intent.category.LAUNCHER c android.intent.category.DEFAULT --monitor-native-crashes --kill-process-after-error --pct-syskeys 0 --pct-appswitch 0 --pct-majornav 50 -v -v -v");
+	    	InputStream is = p.getInputStream();
+	    	BufferedReader br = new BufferedReader(new InputStreamReader(is));
+	    	while(br.readLine()!=null)
+	    	{
+	    		utils.log().info(br.readLine());
+	    		System.out.println(br.readLine());
+	    	}
+	    	utils.log().info("Script Execution using ADB Monkey Ended");
+    		System.out.println("Script Execution using ADB Monkey Ended");
+	    	}
+	    	catch(Exception e)
+	    	{
+	    		System.out.println("Exception in Executing Monkey command");
+	    	}
+	    	
+	    	
+	    	ArrayList<String> list = (ArrayList<String>) Arrays.asList("-p", "br.com.golmobile.nypost.dev", "-v", "1000", "--throttle", "5000", "-c", "android.intent.category.MONKEY", "-c", "android.intent.category.LAUNCHER", "c", "android.intent.category.DEFAULT", "--monitor-native-crashes", "--kill-process-after-error", "--pct-syskeys", "0", "--pct-appswitch", "0", "--pct-majornav", "50", "-v", "-v", "-v");
 			//removed system commands
 			//List<String> list = Arrays.asList("-p", "com.newscorp.thedailytelegraph", "-v", "500", "--throttle", "1000", "-c", "android.intent.category.MONKEY", "-c", "android.intent.category.LAUNCHER", "c", "android.intent.category.DEFAULT", "--monitor-native-crashes", "--kill-process-after-error", "--pct-touch","30","--pct-motion", "30","--pct-majornav", "20", "--pct-appswitch", "2", "-v", "-v", "-v");
 	    	Map<String, Object> argv = new HashMap<>();
