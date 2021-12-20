@@ -71,6 +71,31 @@ public class MonkeyADBShell extends BaseTest {
 				throw new RuntimeException("ADB not exist!\nCurrent Localtion is " + getADB());
 			DeviceConnectHelper.init(getADB());
 			
+			
+			try
+	    	{
+	    		utils.log().info("Script Execution using ADB Monkey Started");
+	    		System.out.println("Script Execution using ADB Monkey Started");	
+	    	
+	    	Process p = Runtime.getRuntime().exec("adb dumpsys cpuinfo");
+	    	InputStream is = p.getInputStream();
+	    	BufferedReader br = new BufferedReader(new InputStreamReader(is));
+	    	while(br.readLine()!=null)
+	    	{
+	    		utils.log().info(br.readLine());
+	    		System.out.println(br.readLine());
+	    	}
+	    	utils.log().info("Script Execution using ADB Monkey Ended");
+    		System.out.println("Script Execution using ADB Monkey Ended");
+    		br.close();
+    		is.close();
+    		p.destroy();
+	    	}
+	    	catch(Exception e)
+	    	{
+	    		System.out.println("Exception in Executing Monkey command");
+	    	}
+			
 	    	List<String> lsArgs = Arrays.asList("cpuinfo");
 	    	Map<String, Object> lsCmd = ImmutableMap.of(
 	    	    "command", "dumpsys",
@@ -78,6 +103,11 @@ public class MonkeyADBShell extends BaseTest {
 	    	);
 	    	String lsOutput = (String) getDriver().executeScript("mobile: shell", lsCmd).toString();
 	    	ExtentReport.getTest().log(Status.INFO, "CPU Info" + lsOutput);	
+	    	
+	    	
+	    	
+	    	
+	    	
 			
 	    	//adb shell monkey -p your.package.name -v 500
 			//"--pct-syskeys", "1", "--pct-appswitch", "1", "--pct-touch","43","--pct-motion", "30","--pct-majornav", "50",
@@ -97,6 +127,9 @@ public class MonkeyADBShell extends BaseTest {
 	    	}
 	    	utils.log().info("Script Execution using ADB Monkey Ended");
     		System.out.println("Script Execution using ADB Monkey Ended");
+    		br.close();
+    		is.close();
+    		p.destroy();
 	    	}
 	    	catch(Exception e)
 	    	{
@@ -107,10 +140,15 @@ public class MonkeyADBShell extends BaseTest {
 	    	List<String> list = Arrays.asList("-p", "br.com.golmobile.nypost.dev", "-v", "1000", "--throttle", "5000", "-c", "android.intent.category.MONKEY", "-c", "android.intent.category.LAUNCHER", "c", "android.intent.category.DEFAULT", "--monitor-native-crashes", "--kill-process-after-error", "--pct-syskeys", "0", "--pct-appswitch", "0", "--pct-majornav", "50", "-v", "-v", "-v");
 			//removed system commands
 			//List<String> list = Arrays.asList("-p", "com.newscorp.thedailytelegraph", "-v", "500", "--throttle", "1000", "-c", "android.intent.category.MONKEY", "-c", "android.intent.category.LAUNCHER", "c", "android.intent.category.DEFAULT", "--monitor-native-crashes", "--kill-process-after-error", "--pct-touch","30","--pct-motion", "30","--pct-majornav", "20", "--pct-appswitch", "2", "-v", "-v", "-v");
-	    	Map<String, Object> argv = new HashMap<>();
-	    	argv.put("command", "monkey");
-	    	argv.put("args", list);
-	    	String result = getDriver().executeScript("mobile: shell", argv).toString();
+//	    	Map<String, Object> argv = new HashMap<>();
+//	    	argv.put("command", "monkey");
+//	    	argv.put("args", list);
+//	    	
+	    	Map<String, Object> monkeyCmd = ImmutableMap.of(
+		    	    "command", "monkey",
+		    	    "args", list
+		    	);
+	    	String result = getDriver().executeScript("mobile: shell", monkeyCmd).toString();
 	    	utils.log().info(result);
 	    	ExtentReport.getTest().log(Status.INFO, result);
 
