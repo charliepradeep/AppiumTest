@@ -7,7 +7,7 @@
 		<parameter name="emulator" value="true" />
 		<parameter name="platformName" value="Android" />
 		<parameter name="udid" value="emulator-5554" />
-		<parameter name="deviceName" value="New_Device_API_30" />		
+		<parameter name="deviceName" value="emulator" />		
 		<parameter name="systemPort" value="4724" />
 <!-- 		<parameter name="chromeDriverPort" value="11000" /> -->		
 	<test name="emulator-5554" preserve-order="true">
