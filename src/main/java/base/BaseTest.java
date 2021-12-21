@@ -321,6 +321,7 @@ public class BaseTest {
 		 // setStrings(utils.parseStringXML(stringsis));
 		  String directoryPath = System.getenv("BITRISE_APK_PATH");
 		  String apppath = props.getProperty(directoryPath);
+		  System.out.println("App path : "+apppath);
 		  
 		  
 		  
