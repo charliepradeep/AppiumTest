@@ -78,7 +78,7 @@ public class MonkeyADBShell extends BaseTest {
 	    		System.out.println("Script Execution using ADB Monkey Started");	
 	    	
 	    	Process p = Runtime.getRuntime().exec("adb dumpsys cpuinfo");
-	    	p.waitFor();
+	    	
 	    	InputStream is = p.getInputStream();
 	    	BufferedReader br = new BufferedReader(new InputStreamReader(is));
 	    	while(br.readLine()!=null)
@@ -86,6 +86,7 @@ public class MonkeyADBShell extends BaseTest {
 	    		utils.log().info(br.readLine());
 	    		System.out.println(br.readLine());
 	    	}
+	    	p.waitFor();
 	    	utils.log().info("Script Execution using ADB Monkey Ended");
     		System.out.println("Script Execution using ADB Monkey Ended");
     		br.close();
@@ -118,8 +119,8 @@ public class MonkeyADBShell extends BaseTest {
 	    		utils.log().info("Script Execution using ADB Monkey Started");
 	    		System.out.println("Script Execution using ADB Monkey Started");	
 	    	
-	    	Process p = Runtime.getRuntime().exec("adb shell -P 5037 -s emulator-5554  monkey -p br.com.golmobile.nypost.dev -v 1000 --throttle 5000 -c android.intent.category.MONKEY -c android.intent.category.LAUNCHER c android.intent.category.DEFAULT --monitor-native-crashes --kill-process-after-error --pct-syskeys 0 --pct-appswitch 0 --pct-majornav 50 -v -v -v");
-	    	p.waitFor();
+	    	Process p = Runtime.getRuntime().exec("adb shell -P 5037 -s emulator-5554  monkey -p com.example.charrlie -v 1000 --throttle 5000 -c android.intent.category.MONKEY -c android.intent.category.LAUNCHER c android.intent.category.DEFAULT --monitor-native-crashes --kill-process-after-error --pct-syskeys 0 --pct-appswitch 0 --pct-majornav 50 -v -v -v");
+	    	
 	    	InputStream is = p.getInputStream();
 	    	BufferedReader br = new BufferedReader(new InputStreamReader(is));
 	    	while(br.readLine()!=null)
@@ -127,6 +128,7 @@ public class MonkeyADBShell extends BaseTest {
 	    		utils.log().info(br.readLine());
 	    		System.out.println(br.readLine());
 	    	}
+	    	p.waitFor();
 	    	utils.log().info("Script Execution using ADB Monkey Ended");
     		System.out.println("Script Execution using ADB Monkey Ended");
     		br.close();

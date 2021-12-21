@@ -153,8 +153,7 @@ public class BaseTest {
 		
 		
 		
-		((CanRecordScreen)getDriver()).startRecordingScreen(new AndroidStartScreenRecordingOptions()
-				.withVideoSize("1280x720") .withTimeLimit(Duration.ofSeconds(180)));
+		((CanRecordScreen)getDriver()).startRecordingScreen();
 	}
 	
 	//stop video capturing and create *.mp4 file
@@ -320,7 +319,8 @@ public class BaseTest {
 		 // utils.log().info("load " + xmlFileName);
 		 // stringsis = getClass().getClassLoader().getResourceAsStream(xmlFileName);
 		 // setStrings(utils.parseStringXML(stringsis));
-		  String apppath = props.getProperty("androidAppLocation");
+		  String directoryPath = System.getenv("$$BITRISE_APK_PATH");
+		  String apppath = props.getProperty(directoryPath);
 		  
 			DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 			desiredCapabilities.setCapability("autoGrantPermissions", true);
