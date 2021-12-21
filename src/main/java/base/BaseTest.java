@@ -142,39 +142,88 @@ public class BaseTest {
 	@BeforeMethod
 	public void beforeMethod() {
 //		((CanRecordScreen) getDriver()).startRecordingScreen();
-		((AndroidDriver)getDriver()).startRecordingScreen(new AndroidStartScreenRecordingOptions()
-				.withVideoSize("1280x720") .withTimeLimit(Duration.ofSeconds(200)));
+		try
+		{
+		Process p = Runtime.getRuntime().exec("adb shell screenrecord /sdcard/charrlie.mp4");
+		InputStream is = p.getInputStream();
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			while(p.waitFor()==0)
+			{
+				while(br.readLine()!=null)
+				{
+					System.out.println(br.readLine());
+					utils.log().info(br.readLine());
+				}
+				
+			}
+		br.close();
+		is.close();
+		p.destroy();
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error in running adb shell");
+		}
+		
+		
+		
+		//((AndroidDriver)getDriver()).startRecordingScreen(new AndroidStartScreenRecordingOptions()
+		//		.withVideoSize("1280x720") .withTimeLimit(Duration.ofSeconds(200)));
 	}
 	
 	//stop video capturing and create *.mp4 file
 	@AfterMethod
 	public synchronized void afterMethod(ITestResult result) throws Exception {
-		String media = ((CanRecordScreen) getDriver()).stopRecordingScreen();
-		
-		Map <String, String> params = result.getTestContext().getCurrentXmlTest().getAllParameters();		
-		String dirPath = "videos" + File.separator + params.get("platformName") + "_" + params.get("deviceName") 
-		+ File.separator + getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName();
-		
-		File videoDir = new File(dirPath);
-		
-		synchronized(videoDir){
-			if(!videoDir.exists()) {
-				videoDir.mkdirs();
-			}	
-		}
-		FileOutputStream stream = null;
-		try {
-			stream = new FileOutputStream(videoDir + File.separator + result.getName() + ".mp4");
-			stream.write(Base64.decodeBase64(media));
-			stream.close();
-			utils.log().info("video path: " + videoDir + File.separator + result.getName() + ".mp4");
-		} catch (Exception e) {
-			utils.log().error("error during video capture" + e.toString());
-		} finally {
-			if(stream != null) {
-				stream.close();
+	
+		try
+		{
+		String directoryPath = System.getenv("$BITRISE_SOURCE_DIR");
+		Process p = Runtime.getRuntime().exec("adb pull /sdcard/charrlie.mp4 "+directoryPath);
+		InputStream is = p.getInputStream();
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			while(p.waitFor()==0)
+			{
+				while(br.readLine()!=null)
+				{
+					System.out.println(br.readLine());
+					utils.log().info(br.readLine());
+				}
+				
 			}
-		}		
+		br.close();
+		is.close();
+		p.destroy();
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error in running adb shell");
+		}
+//		String media = ((CanRecordScreen) getDriver()).stopRecordingScreen();
+//		
+//		Map <String, String> params = result.getTestContext().getCurrentXmlTest().getAllParameters();		
+//		String dirPath = "videos" + File.separator + params.get("platformName") + "_" + params.get("deviceName") 
+//		+ File.separator + getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName();
+//		
+//		File videoDir = new File(dirPath);
+//		
+//		synchronized(videoDir){
+//			if(!videoDir.exists()) {
+//				videoDir.mkdirs();
+//			}	
+//		}
+//		FileOutputStream stream = null;
+//		try {
+//			stream = new FileOutputStream(videoDir + File.separator + result.getName() + ".mp4");
+//			stream.write(Base64.decodeBase64(media));
+//			stream.close();
+//			utils.log().info("video path: " + videoDir + File.separator + result.getName() + ".mp4");
+//		} catch (Exception e) {
+//			utils.log().error("error during video capture" + e.toString());
+//		} finally {
+//			if(stream != null) {
+//				stream.close();
+//			}
+//		}		
 	}
 	
 	@BeforeSuite
