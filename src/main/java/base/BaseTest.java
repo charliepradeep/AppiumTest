@@ -319,7 +319,7 @@ public class BaseTest {
 		 // utils.log().info("load " + xmlFileName);
 		 // stringsis = getClass().getClassLoader().getResourceAsStream(xmlFileName);
 		 // setStrings(utils.parseStringXML(stringsis));
-		  String directoryPath = System.getenv("$$BITRISE_APK_PATH");
+		  String directoryPath = System.getenv("$BITRISE_APK_PATH");
 		  String apppath = props.getProperty(directoryPath);
 		  
 			DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
