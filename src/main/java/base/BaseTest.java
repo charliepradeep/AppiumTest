@@ -141,7 +141,9 @@ public class BaseTest {
 
 	@BeforeMethod
 	public void beforeMethod() {
-		((CanRecordScreen) getDriver()).startRecordingScreen();
+//		((CanRecordScreen) getDriver()).startRecordingScreen();
+		((AndroidDriver)getDriver()).startRecordingScreen(new AndroidStartScreenRecordingOptions()
+				.withVideoSize("1280x720") .withTimeLimit(Duration.ofSeconds(200)));
 	}
 	
 	//stop video capturing and create *.mp4 file
