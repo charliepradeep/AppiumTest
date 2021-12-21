@@ -147,18 +147,13 @@ public class BaseTest {
 		Process p = Runtime.getRuntime().exec("adb shell screenrecord /sdcard/charrlie.mp4");
 		InputStream is = p.getInputStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			while(p.waitFor()==0)
-			{
+		
 				while(br.readLine()!=null)
 				{
 					System.out.println(br.readLine());
 					utils.log().info(br.readLine());
 				}
 				
-			}
-		br.close();
-		is.close();
-		p.destroy();
 		}
 		catch(Exception e)
 		{
